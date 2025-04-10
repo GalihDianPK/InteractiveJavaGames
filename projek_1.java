@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class projek_1 {
 
@@ -38,7 +39,7 @@ public class projek_1 {
 
     public static byte menuAwal(Scanner input) { //? fungsi menu awal atau memilih game
         System.out.println("SELAMAT DATANG DI GAME!");
-        String[] arrayGame = {"Tebak nilai", "Kalkulator", "SiSTEM KASIR MINI", "Multiple Choice", "Sistem Kasir"};
+        String[] arrayGame = {"Tebak nilai", "Kalkulator", "SiSTEM KASIR MINI"};
 
         for (int i = 0; i < arrayGame.length; i++){
             System.out.println((i + 1) + ". " + arrayGame[i]);
@@ -111,39 +112,58 @@ public class projek_1 {
                     System.out.println("pilihan tidak tersedia");
                 }
             case 3 :
-                System.out.println("=== SISTEM KASIR MINI ===");
-                
-                String[] arrayMenu = {"Tambah barang", "Lihat Daftar belanja", "Hitung total", "Keluar"};
-                for (int i = 0; i < arrayMenu.length; i++){
-                    System.out.println((i + 1) + ". " + arrayMenu[i]);
-                }
+                boolean jalan = true;
+                String[] arrayMenu = {"Tambah barang", "Hitung total", "Keluar"};
+                ArrayList<String> daftarBarang = new ArrayList<>();
+                ArrayList<Integer> totalHarga = new ArrayList<>();
 
-                System.out.print("Masukkan pilihan : ");
-                byte pilihanMenu = input.nextByte();
-                input.nextLine();
-
-                switch(pilihanMenu){
-                    case 1 :
-                        System.out.print("Barang : ");
-                        String barang = input.nextLine();
-
-                        System.out.print("Harga : ");
-                        int harga = input.nextInt();
-
-                        System.out.print("Jumlah : ");
-                        byte jumlah = input.nextByte();
-
-                        int sistemOperasi = harga * jumlah;
-
-                        System.out.println("total : Rp." + sistemOperasi);
-                        break;           
-                    default:
-                        System.out.println("pilihan tidak tersedia");     
-                        input.close();
+                while (jalan == true){
+                    System.out.println("=== SISTEM KASIR MINI ===");
+                    for ( int i = 0; i < arrayMenu.length; i++){
+                        System.out.println((i + 1) + ". " + arrayMenu[i]);
                     }
-                }
-            }   
 
+                    System.out.println("Masukkan Pilihan : ");
+                    byte pilihanMenu = input.nextByte();
+                    input.nextLine();
+
+                    switch (pilihanMenu){
+                        case 1 :
+                            System.out.print("Barang : ");
+                            String barang = input.nextLine();
+
+                            daftarBarang.add(barang);
+
+                            System.out.print("Harga : ");
+                            int harga = input.nextInt();                           
+
+                            System.out.print("Jumlah : ");
+                            byte jumlah = input.nextByte();
+
+                            int sistemOperasi = harga * jumlah;
+                            totalHarga.add(sistemOperasi);
+
+                            System.out.println("total : Rp." + sistemOperasi);
+                            break;             
+                        case 2 :
+                            int grandTotal = 0;
+                            for (int hargaTotal : totalHarga){
+                                grandTotal += hargaTotal;
+                            }
+                            System.out.println("Total semua harganya adalah Rp." + grandTotal);
+                            break;
+                        case 3 :
+                            System.out.println("Keluar dari kasir mini");
+                            jalan = false;
+                            break;
+                        
+                        default :
+                            System.out.println("Pilihan tidak tersedia");
+                    }
+                System.out.println();
+                }
+            }
+        }      
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in); //? ini berfungsi agar input tetap bekerja di fungsi utama
         inputNama(input); //? memanggil fungsi data diri
